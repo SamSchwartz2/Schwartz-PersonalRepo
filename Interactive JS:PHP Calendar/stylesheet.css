@@ -1,0 +1,49 @@
+.row div {
+    border: 2px solid rgb(196, 193, 193);
+    height: 125px;
+    width: 150px;
+}
+.row .div p{
+    text-align: center;
+}
+.row .heading{
+    font-size: x-large;
+    width: 750px;
+    text-align: center;
+    border-right: transparent;
+    border-left: transparent;
+}
+.row .heading p{
+    margin-top: 50px;
+}
+h4 {
+    font-size: medium;
+    text-align: center;
+}
+.monthBut{
+    margin-top: 50px;
+}
+#prev {
+    border-right: transparent;
+}
+#next{
+    border-left: transparent;
+}
+#b1{
+    border: 1px solid black;
+}
+#b2{
+    border: 1px solid black;
+}
+#b3{
+    border: 1px solid black;
+}
+#b4{
+    border: 1px solid black;
+}
+#b5{
+    border: 1px solid black;
+}
+#b6{
+    border: 1px solid black;
+}
