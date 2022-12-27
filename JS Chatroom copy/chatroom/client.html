@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+      <title> Chatroom! </title>
+      <style>
+	.currentusers {
+                margin-left: 200px;
+         }
+	#currentuserstest, #showusers, .msgstuff, #disconnecter, .currentusers, #hideusers, #kick, #kicking {
+		display: none;
+	}
+	
+	.passroom {
+		visibility: hidden;
+	}
+
+      </style>
+      <script src = "/socket.io/socket.io.js"> </script>
+      <script>
+      let userArr = [];
+      var socketio = io.connect();
+      socketio.on("message_to_client", function(data) {
+         console.log(data);
+         console.log(data["msg"]);
+         console.log(data["usr"]);
+         console.log(data["room"]);    //Append an HR thematic break and the escaped HTML of the 
+         document.getElementById("chatlog").appendChild(document.createElement("hr"));
+         document.getElementById("chatlog").appendChild(document.createTextNode(data["usr"] + " : " + data["msg"]));
+ });
+      socketio.on("tester", function(data) {
+        console.log(data);
+        document.getElementById("chatlog").appendChild(document.createElement("hr"));
+        document.getElementById("chatlog").appendChild(document.createTextNode( data["usr"] +"  has joined room " + data["room"]));
+	userArr.push(data["usr"]);	
+	let msgstuff = document.getElementById("message_input");
+        msgstuff.style.display = "block";
+        let msgstuff2 = document.getElementById("send");
+        let msgstuff3 = document.getElementById("titler");	
+	let discon = document.getElementById("disconnecter");
+	discon.style.display = "block";
+        msgstuff2.style.display = "block";
+        msgstuff3.style.display = "block";
+	let cusrs = document.getElementById("currusers");
+        cusrs.style.display = "block";
+	let cusrstext = document.getElementById("curruserstext");
+        cusrstext.style.display = "block";
+	let enterer = document.getElementById("enter");
+	enterer.style.display = "none";
+	let showusers = document.getElementById("showusers");
+	showusers.style.display = "block";
+	let dm1 = document.getElementById("userTo");
+	dm1.style.display = "block";
+	let dm2 = document.getElementById("usernameTo");
+        dm2.style.display = "block";
+	let dm3 = document.getElementById("titler1");
+        dm3.style.display = "block";
+	let dm4 = document.getElementById("private_message_input");
+        dm4.style.display = "block";
+	let dm5 = document.getElementById("sendprivate");
+	dm5.style.display = "block";
+	let pr1 = document.getElementById("proom1");
+	pr1.style.display = "block";
+	let pr2 = document.getElementById("proom2");
+        pr2.style.display = "block";
+	let pr3 = document.getElementById("password");
+	pr3.style.display = "block";
+	let pr4 = document.getElementById("passroomcreate");
+	pr4.style.display = "block";
+	let pr5 = document.getElementById("proom3");
+	pr5.style.display = "block";
+	let pr6	= document.getElementById("room_number");
+        pr6.style.display = "block";
+	let pr7 = document.getElementById("proom4");
+        pr7.style.display = "block";
+        let pr8 = document.getElementById("proom5");
+        pr8.style.display = "block";
+        let pr9 = document.getElementById("password_guess");
+        pr9.style.display = "block";
+        let pr10 = document.getElementById("room_number_guess");
+        pr10.style.display = "block";
+        let pr11 = document.getElementById("passroomjoin");
+        pr11.style.display = "block";
+	let kick1 = document.getElementById("kicking");
+	kick1.style.display = "block";
+	let kick2 = document.getElementById("kick");
+        kick2.style.display = "block";
+	
+});
+     socketio.on("create_p_room", function (data){
+	console.log(data);
+        document.getElementById("chatlog").appendChild(document.createElement("hr"));
+        document.getElementById("chatlog").appendChild(document.createTextNode("You have created and joined private room " + data["room"]));
+	document.getElementById("chatlog").appendChild(document.createTextNode("; Type in your verified room name and message above to start chatting"));
+	let msgstuff = document.getElementById("message_input");
+	userArr.push(data["user"]);
+        msgstuff.style.display = "block";
+        let msgstuff2 = document.getElementById("send");
+        let msgstuff3 = document.getElementById("titler");
+        let discon = document.getElementById("disconnecter");
+        discon.style.display = "block";
+        msgstuff2.style.display = "block";
+        msgstuff3.style.display = "block";
+        let cusrs = document.getElementById("currusers");
+        cusrs.style.display = "block";
+        let cusrstext = document.getElementById("curruserstext");
+        cusrstext.style.display = "block";
+        let enterer = document.getElementById("enter");
+        enterer.style.display = "none";
+        let showusers = document.getElementById("showusers");
+        showusers.style.display = "block";
+        let dm1 = document.getElementById("userTo");
+        dm1.style.display = "block";
+        let dm2 = document.getElementById("usernameTo");
+        dm2.style.display = "block";
+        let dm3 = document.getElementById("titler1");
+        dm3.style.display = "block";
+        let dm4 = document.getElementById("private_message_input");
+        dm4.style.display = "block";
+        let dm5 = document.getElementById("sendprivate");
+        dm5.style.display = "block";
+        let pr1 = document.getElementById("proom1");
+        pr1.style.display = "block";
+        let pr2 = document.getElementById("proom2");
+        pr2.style.display = "block";
+        let pr3 = document.getElementById("password");
+        pr3.style.display = "block";
+        let pr4 = document.getElementById("passroomcreate");
+        pr4.style.display = "block";
+        let pr5 = document.getElementById("proom3");
+        pr5.style.display = "block";
+        let pr6 = document.getElementById("room_number");
+        pr6.style.display = "block";
+	let pr7 = document.getElementById("proom4");
+        pr7.style.display = "block";
+        let pr8 = document.getElementById("proom5");
+        pr8.style.display = "block";
+        let pr9 = document.getElementById("password_guess");
+        pr9.style.display = "block";
+        let pr10 = document.getElementById("room_number_guess");
+        pr10.style.display = "block";
+        let pr11 = document.getElementById("passroomjoin");
+        pr11.style.display = "block";
+        let kick1 = document.getElementById("kicking");
+        kick1.style.display = "block";
+        let kick2 = document.getElementById("kick");
+        kick2.style.display = "block";
+	
+});
+     socketio.on("badguess",function(data){
+	document.getElementById("chatlog").appendChild(document.createElement("hr"));
+	document.getElementById("chatlog").appendChild(document.createTextNode( document.getElementById("username") + " has incorrectly tried to join a protected room"));
+	
+});
+     socketio.on("join_p_room", function(data){
+	console.log(data);
+	document.getElementById("chatlog").appendChild(document.createElement("hr"));
+        document.getElementById("chatlog").appendChild(document.createTextNode( data["user"] +"  has joined protected room " + data["room"]));
+	document.getElementById("chatlog").appendChild(document.createTextNode("; Type in your verified room name and message above to start chatting"));
+	let msgstuff = document.getElementById("message_input");
+	document.getElementById("room_num").innerHTML = data.room;
+        userArr.push(data["user"]);
+        msgstuff.style.display = "block";
+        let msgstuff2 = document.getElementById("send");
+        let msgstuff3 = document.getElementById("titler");
+        let discon = document.getElementById("disconnecter");
+        discon.style.display = "block";
+        msgstuff2.style.display = "block";
+        msgstuff3.style.display = "block";
+        let cusrs = document.getElementById("currusers");
+        cusrs.style.display = "block";
+        let cusrstext = document.getElementById("curruserstext");
+        cusrstext.style.display = "block";
+        let enterer = document.getElementById("enter");
+        enterer.style.display = "none";
+        let showusers = document.getElementById("showusers");
+        showusers.style.display = "block";
+        let dm1 = document.getElementById("userTo");
+        dm1.style.display = "block";
+        let dm2 = document.getElementById("usernameTo");
+        dm2.style.display = "block";
+        let dm3 = document.getElementById("titler1");
+        dm3.style.display = "block";
+        let dm4 = document.getElementById("private_message_input");
+        dm4.style.display = "block";
+        let dm5 = document.getElementById("sendprivate");
+        dm5.style.display = "block";
+        let pr1 = document.getElementById("proom1");
+        pr1.style.display = "block";
+        let pr2 = document.getElementById("proom2");
+        pr2.style.display = "block";
+        let pr3 = document.getElementById("password");
+        pr3.style.display = "block";
+        let pr4 = document.getElementById("passroomcreate");
+        pr4.style.display = "block";
+        let pr5 = document.getElementById("proom3");
+        pr5.style.display = "block";
+        let pr6 = document.getElementById("room_number");
+        pr6.style.display = "block";
+        let pr7 = document.getElementById("proom4");
+        pr7.style.display = "block";
+        let pr8 = document.getElementById("proom5");
+        pr8.style.display = "block";
+        let pr9 = document.getElementById("password_guess");
+        pr9.style.display = "block";
+        let pr10 = document.getElementById("room_number_guess");
+        pr10.style.display = "block";
+        let pr11 = document.getElementById("passroomjoin");
+        pr11.style.display = "block";
+        let kick1 = document.getElementById("kicking");
+        kick1.style.display = "block";
+	let kick2 = document.getElementById("kick");
+        kick2.style.display = "block";
+});
+     socketio.on("leave_room", function(data){
+	console.log(data);
+	document.getElementById("chatlog").appendChild(document.createElement("hr"));
+	document.getElementById("chatlog").appendChild(document.createTextNode(data["usr"] + " has left the room "));
+	let cusrs = document.getElementById("currusers");
+	cusrs.style.display = "none";
+	let cusrstext = document.getElementById("curruserstext");
+        cusrstext.style.display = "none";
+
+});
+      socketio.on("pm", function(data){
+	console.log(data);
+	document.getElementById("chatlog").appendChild(document.createElement("hr"));
+	document.getElementById("chatlog").appendChild(document.createTextNode("Private message from " + data["from"] + ": " + data["message"] ));
+   });
+      socketio.on("kicker", function (data) {
+	console.log(data);
+	document.getElementById("chatlog").appendChild(document.createElement("hr"));
+        document.getElementById("chatlog").appendChild(document.createTextNode(data["usr"] + " has been kicked from the room "));	 
+}); 
+      function sendMessage(){
+         var msg = document.getElementById("message_input").value;
+         var usr = document.getElementById("username").value;
+         var rmm = document.getElementById("room_num").value;
+         const data = {message:msg, room:rmm, username:usr};
+         socketio.emit("message_to_server",data);
+         console.log(data);
+         console.log(data.username);
+         console.log(data.message);
+         console.log(data.room);
+      }
+      function userRoomcheck(){
+        var usr = document.getElementById("username").value;
+        var rmm = document.getElementById("room_num").value;
+        const data = {username:usr, room:rmm};
+        socketio.emit("enter_room", data);
+        console.log(data);
+        console.log(data["username"]);
+        console.log(data["room"]);
+	document.getElementById("showusers").style.visibility="visible";
+
+	document.getElementById("enter").style.visibility="hidden";
+	document.getElementById("kicking").style.visibility="visible";
+	document.getElementById("kick").style.visibility="visible";
+        document.getElementById("proom1").style.visibility="visible";
+        document.getElementById("proom2").style.visibility="visible";
+        document.getElementById("password").style.visibility="visible";
+        document.getElementById("proom3").style.visibility="visible";
+        document.getElementById("room_number").style.visibility="visible";
+        document.getElementById("passroomcreate").style.visibility="visible";
+        document.getElementById("proom4").style.visibility="visible";
+        document.getElementById("proom5").style.visibility="visible";
+        document.getElementById("password_guess").style.visibility="visible";
+        document.getElementById("proom6").style.visibility="visible";
+        document.getElementById("room_number_guess").style.visibility="visible";
+        document.getElementById("passroomjoin").style.visibility="visible";
+        }
+      function createPassRoom(){
+	 var usr = document.getElementById("username").value;
+        var rmm = document.getElementById("room_number").value;
+        var pwd = document.getElementById("password").value
+	const data = {username: usr, room: rmm, password:pwd};
+	socketio.emit("create_pass_room", data);
+	console.log(data);	
+	
+}
+      function joinPassRoom(){ 
+	var usr = document.getElementById("username").value;
+        var rmmguess = document.getElementById("room_number_guess").value;
+        var pwdguess = document.getElementById("password_guess").value
+        const data = {username: usr, roomguess: rmmguess, passguess:pwdguess};
+        console.log(data);
+	socketio.emit("join_pass_room", data);
+}
+      function disconnecter(){
+	var usr = document.getElementById("username").value;	
+	var rmm = document.getElementById("room_num").value;
+	const data = {username:usr, room:rmm};
+	socketio.emit("disconnecter", data);
+	let send = document.getElementById("send");
+        send.style.display = "none";
+        let disc = document.getElementById("disconnecter");
+        disc.style.display = "none";
+	let enterer = document.getElementById("enter");
+        enterer.style.display = "block";
+        let showusers = document.getElementById("showusers");       
+	let tit = document.getElementById("titler");
+	tit.style.display = "none";
+	let msg = document.getElementById("message_input");
+	msg.style.display = "none";
+	let hide = document.getElementById("hideusers");
+	hide.style.display = "none";
+	let usrtoremove = data["usr"];
+	removeElement(userArr, usrtoremove);
+	let dm1 = document.getElementById("userTo");
+        dm1.style.display = "none";
+        let dm2 = document.getElementById("usernameTo");
+        dm2.style.display = "none";
+        let dm3 = document.getElementById("titler1");
+        dm3.style.display = "none";
+        let dm4 = document.getElementById("private_message_input");
+        dm4.style.display = "none";
+	document.getElementById("currusers").innerHTML = " ";
+	console.log(data);
+	document.getElementById("enter").style.visibility="visible";
+	document.getElementById("showusers").style.visibility="hidden";
+	let dm5 = document.getElementById("sendprivate");
+        dm5.style.display = "none";
+	let pr1 = document.getElementById("proom1");
+        pr1.style.display = "none";
+        let pr2 = document.getElementById("proom2");
+        pr2.style.display = "none";
+        let pr3 = document.getElementById("password");
+        pr3.style.display = "none";
+        let pr4 = document.getElementById("passroomcreate");
+        pr4.style.display = "none";
+	let pr5	= document.getElementById("proom3");
+        pr5.style.display = "none";
+        let pr6 = document.getElementById("room_number");
+        pr6.style.display = "none";
+	let pr7 = document.getElementById("proom4");
+        pr7.style.display = "none";
+	let pr8 = document.getElementById("proom5");
+        pr8.style.display = "none";
+	let pr9 = document.getElementById("password_guess");
+	pr9.style.display = "none";
+	let pr10 = document.getElementById("room_number_guess");
+	pr10.style.display = "none";
+	let pr11 = document.getElementById("passroomjoin");
+	pr11.style.display = "none";
+        let kick1 = document.getElementById("kicking");
+        kick1.style.display = "none";
+        let kick2 = document.getElementById("kick");
+        kick2.style.display = "none";
+	}
+     function showusers(){
+	let hideusrz = document.getElementById("currusers");
+        hideusrz.style.display = "block";
+ 	document.getElementById("currusers").innerHTML += ("Active Users: ");
+	for(let i = 0; i < userArr.length; i++){
+                 document.getElementById("currusers").innerHTML += (userArr[i] + ", ");
+        }
+	let hideusr = document.getElementById("hideusers");
+	hideusr.style.display = "block";
+	document.getElementById("hideusers").style.visibility="visible";
+             document.getElementById("showusers").style.visibility="hidden";
+	}
+     function hideusers(){
+	document.getElementById("currusers").innerHTML = " ";
+	let hideusr = document.getElementById("currusers");
+        hideusr.style.display = "none";
+	document.getElementById("hideusers").style.visibility="hidden";
+             document.getElementById("showusers").style.visibility="visible";	
+	}
+     function sendPrivate(){
+	var msg = document.getElementById("private_message_input").value;
+	var usrFrom = document.getElementById("username").value;
+	var usrTo = document.getElementById("usernameTo").value;
+	var rmm = document.getElementById("room_num").value;
+	const data = {message:msg, userFrom:usrFrom, userTo:usrTo, room:rmm}; 
+	socketio.emit("private_message", data);
+	console.log(data);	
+}
+     function kickUser() {
+      console.log(userArr);
+      var userKick = document.getElementById("kicking");
+      var rmm = document.getElementById("room_num").value;
+      const data = {username: userKick, room: rmm};
+      socketio.emit("kicker", data);		
+      removeElement(userArr, userKick);
+      console.log(userArr);
+      // alert("you have kicked " + userKick);
+
+	}        
+
+     function removeElement(array, elem) {
+        var index = array.indexOf(elem);
+        if (index > -1) {
+                 array.splice(index, 1);
+      }
+     }
+      </script>
+   </head>   <body>
+      Enter your username:
+      <br>
+      <input type = "text" id = "username"/>
+      <div id = "currusers" class = "currentusers"> <span id = "curruserstext"  class = "currentusers">  </span> </div>
+      <br>
+      <span id = "titler" class = "msgstuff"> Message: </span>
+      <input type = "text" class = "msgstuff" id = "message_input"/>
+      Room name (if you'd like to join the lobby, simply hit enter):
+      <br>
+      <input type = "text" id = "room_num"/>
+      <button id = "enter" onclick = "userRoomcheck()"> Enter </button>
+      <button id = "send" class = "msgstuff"  onclick="sendMessage()">Send</button>
+      <span id = "userTo" class = "msgstuff"> To user:  </span>
+      <input type = "text" class = "msgstuff" id = "usernameTo"/>
+      <span id = "titler1" class = "msgstuff"> Private  Message: </span>
+      <input type = "text" class = "msgstuff" id = "private_message_input"/>
+      <button id = "sendprivate" class = "msgstuff" onclick = "sendPrivate()"> Send a Private Message </button>  <br>
+      <span  class = "passroom" id = "proom1"> Create a Private Room:</span> <br>
+      <span class = "passroom" id = "proom2"> Password: </span>	<br>
+      <input type = "text" id = "password" class = "passroom" />
+      <span class = "passroom" id = "proom3"> Room name: </span> <br>
+      <input type = "text" class = "passroom" id = "room_number"/> 	 
+      <button id = "passroomcreate" class = "passroom" onclick = "createPassRoom()"> Create a private room </button>
+      <span class = "passroom" id = "proom4"> Join a Private Room:</span> <br>
+      <span class = "passroom" id = "proom5"> Password: </span>
+      <input type = "text" id = "password_guess" class = "passroom" /> <br>
+      <span class = "passroom" id = "proom6"> Room name: </span> <br>
+      <input type = "text" id = "room_number_guess" class = "passroom" /> <br>
+      <button id = "passroomjoin" class = "passroom" onclick = "joinPassRoom()"> Join a private room </button> <br> 
+      <button id = "disconnecter" onclick = "disconnecter()"> Disconnect </button> <br>
+      <button id = "showusers" onclick = "showusers()"> Show Users </button> <br>
+      <button id  = "hideusers" onclick = "hideusers()"> Hide Users </button>    <br> 
+      <input type = "text" id = "kicking"/> <br>
+      <button id = "kick"  onclick = "kickUser()"> Kick User </button> <br>
+      <div id="chatlog"></div>
+   </body>
+</html>
